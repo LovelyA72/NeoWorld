@@ -24,9 +24,11 @@ else ()
     set(git_version 0)
 endif ()
 
-project(neoworld LANGUAGES C CXX VERSION 1.0.${git_version})
+project(neoworld LANGUAGES C CXX VERSION 0.2.${git_version})
 
 SET(CMAKE_CXX_FLAGS "-O2 -Wno-unused-result")
+
+configure_file(src/config.h.in ${CMAKE_CURRENT_SOURCE_DIR}/src/config.h)
 
 add_executable(neoworld
         src/world/cheaptrick.h

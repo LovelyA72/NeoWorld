@@ -1,29 +1,19 @@
-/*
- * ※このプログラムはGPL (General Public License)でライセンスされています．
- * ライセンスの内容は，copying.txtをご確認ください．
- * 以下、WORLD(0.0.4)のreadme.txtより引用。
- * > 注意すべきは以下の2点です．
- * > ・本プログラムを利用して作ったアプリケーションは，
- * > 　ソースコードも一緒に配布する必要がある．
- * > ・そのアプリケーションもGPLライセンスにしなければならない．
- */
 //
-// world4utau.cpp
+// main.cpp
 //
-//このソースコードはWORLD0.0.4のtest.cppを元にしています
-//引数
-// 1 入力ファイル（OK）
-// 2 出力ファイル（OK）
-// 3 音階（OK）
-// 4 タイムパーセント→Velocity
-// 5 フラグ　t,g,P 実装
-// 6 オフセット
-// 7 長さ：要求長
-// 8 前半の固定部分 fixed
-// 9 最後の使用しない部分。マイナスの場合offsetからの使用部分 blank
-// 10 ボリューム (OK) volm
-// 11 モジュレーション (OK) modulation
-// 12~ ピッチベンド  pitches
+//argument
+// 1   Input file (OK)
+// 2   Output file (OK)
+// 3   scale (OK)
+// 4   Time Percentage → Velocity
+// 5   Flag t, g, P implementation
+// 6   offset
+// 7   Length: Requested length
+// 8   Fixed part of the first half fixed
+// 9   The last unused part. If negative, the part used from offset blank
+// 10  volume (OK) volm
+// 11  Modulation (OK) modulation
+// 12~ pitch bend pitches 
 
 
 #include <stdio.h>
@@ -38,7 +28,6 @@
 #include <float.h>
 #include <memory.h>
 #include "world/stonemask.h"
-//#include "dio.cpp"
 #include "world/cheaptrick.h"
 #include "world/d4c.h"
 #include "world/dio.h"
@@ -47,18 +36,20 @@
 #include "matlabmyfunctions.h"
 #include "audio_io.h"
 
+#include "config.h"
+
 #include <math.h>
 #include <sys/time.h>
 
-// 分析シフト量 [msec]
+// Analyze the amount of sifto [msec]
 #define FRAMEPERIOD (1000.0*256/44100)
 //#define FRAMEPERIOD 5.80498866213152
 //#pragma comment(lib, "winmm.lib")
 unsigned int timeGetTime()
 {
-struct timeval now;
-gettimeofday(&now, NULL);
-return now.tv_usec/1000;
+	struct timeval now;
+	gettimeofday(&now, NULL);
+	return now.tv_usec/1000;
 }
 
 int get64(int c)
@@ -1321,7 +1312,8 @@ int main(int argc, char *argv[])
 	//*
 	if(argc <= 4)
 	{
-		fprintf(stderr, "error: 引数の数が不正です．\n");
+		fprintf(stdout, "NeoWorld v%s\n",PROJECT_VER);
+		fprintf(stdout, "Usage:\nneoworld inputfile outputfile notenum velocity flags offset_ms notelength fixedlength end intensity modulation tempo pitchbends\n");
 		return 0;
 	}
 	//*/
@@ -1452,10 +1444,10 @@ int main(int argc, char *argv[])
 	printf("blank         :%lf\n", blank);
 #endif
 	//伸縮の概念図
-	//  offset    fixed      m2      blank
-	//|--------|--------|---------|---------| 原音
-	//         |        |          |
-	//         |   l1   |    l2     |
+	//  offset    fixed      m2        blank
+	//|--------|--------|------------|---------| 原音
+	//         |        |            |
+	//         |   l1   |    l2      |
 	//         |--------|------------|  出力
 	// l1  = fixed / velocity
 	// l2  = m2    / stretch
