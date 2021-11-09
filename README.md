@@ -1,6 +1,11 @@
 # NeoWorld4U
 A fork of Zany's W4U updated for building with cmake
 
+| Platform | Build Status |
+| ----------- | ----------- |
+| ubuntu | ![ubuntu-status](https://github.com/LovelyA72/NeoWorld/actions/workflows/ubuntu-build.yml/badge.svg) |
+| Windows | WIP | 
+
 ## System requirement
 * CMake 3.2
 * GNU GCC 9.3.0
