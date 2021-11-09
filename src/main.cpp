@@ -50,8 +50,6 @@
 #include <math.h>
 #include <sys/time.h>
 
-#define _fpclass fpclassify
-
 // 分析シフト量 [msec]
 #define FRAMEPERIOD (1000.0*256/44100)
 //#define FRAMEPERIOD 5.80498866213152
@@ -565,7 +563,7 @@ void writeCTParam(int signalLen, int fs, const char *filename, double *specgram[
 			for (j=0; j <=fftl/2; j++)
 			{
 				int un;
-				if ((un = _fpclass(specgram[i][j]) & 0x0087) != 0)
+				if ((un = fpclassify(specgram[i][j]) & (FP_INFINITE+FP_NAN+FP_SUBNORMAL)) != 0)
 				{
 					specgram[i][j] = 0;
 #ifdef _DEBUG
@@ -735,7 +733,7 @@ void writeD4CParam(int signalLen, int fs, const char *filename, double *residual
 			for (j=0; j<=fftl/2; j++)
 			{
 				int un;
-				if ((un = _fpclass(residualSpecgram[i][j]) & 0x0087) != 0)
+				if ((un = fpclassify(residualSpecgram[i][j]) & (FP_INFINITE+FP_NAN+FP_SUBNORMAL)) != 0)
 				{
 					residualSpecgram[i][j] = 0;
 #ifdef _DEBUG
@@ -887,7 +885,7 @@ int writeDIOParam(int signalLen, int fs, int tLen, const char *filename, double 
 		for (i=0; i <tLen; i++)
 		{
 			int un;
-			if ((un = _fpclass(f0[i]) & 0x0087) != 0)//NaN,+Inf,-Inf,denormalを除外する
+			if ((un = fpclassify(f0[i]) & (FP_INFINITE+FP_NAN+FP_SUBNORMAL)) != 0)//NaN,+Inf,-Inf,denormalを除外する
 			{
 #ifdef _DEBUG
 				printf("un[%d]=%04x!\n", i, un);
