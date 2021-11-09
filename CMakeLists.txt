@@ -20,6 +20,13 @@ if (Git_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
             OUTPUT_VARIABLE git_version
             OUTPUT_STRIP_TRAILING_WHITESPACE
     )
+    execute_process(
+        COMMAND git log -1 --format=%h
+        WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+        OUTPUT_VARIABLE GIT_HASH
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+        )
+    message(Git\ hash:\ ${GIT_HASH})
 else ()
     set(git_version 0)
 endif ()

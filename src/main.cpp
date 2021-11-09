@@ -1312,7 +1312,7 @@ int main(int argc, char *argv[])
 	//*
 	if(argc <= 4)
 	{
-		fprintf(stdout, "NeoWorld v%s\n",PROJECT_VER);
+		fprintf(stdout, "NeoWorld v%s %s\n",PROJECT_VER, PTOJECT_GITHASH);
 		fprintf(stdout, "Usage:\nneoworld inputfile outputfile notenum velocity flags offset_ms notelength fixedlength end intensity modulation tempo pitchbends\n");
 		return 0;
 	}
