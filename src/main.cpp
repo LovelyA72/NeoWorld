@@ -47,7 +47,6 @@
 #include "matlabmyfunctions.h"
 #include "audio_io.h"
 
-
 #include <math.h>
 #include <sys/time.h>
 
@@ -807,7 +806,7 @@ int readDIOParam(const char *filename, double *p_t[], double *p_f0[], int *p_fs,
 				t = 0;
 				f0 = 0;
 				tLen= 0;
-				fprintf(stderr, " メモリーが確保できません。%d\n");
+				fprintf(stderr, " メモリーが確保できません。\n");
 			}
 		}
 		fclose(fp);
@@ -1071,7 +1070,7 @@ void breath2(double *f0, int tLen, int fs, double *x, int xLen, fft_complex **wa
 	fft_complex		*noiseSpec;	// スペクトル
 
 	noiseData = (double *)malloc(sizeof(double) * xLen);
-	for(i=0;i < xLen; i++) noiseData[i] = (double)rand()/(RAND_MAX+1) - 0.5;
+	for(i=0;i < xLen; i++) noiseData[i] = (double)rand()/(RAND_MAX+1.0) - 0.5;
 	noise = (double *)malloc(sizeof(double) * xLen);
 	for(i=0;i < xLen; i++) noise[i] = 0.0;
 //	for(i=0;i < xLen; i++) noiseData[i] *= noiseData[i] * (noiseData[i] < 0)? -1 : 1;//ノイズの分布をいじる
@@ -1505,7 +1504,7 @@ int main(int argc, char *argv[])
 	printf("Length %f [sec]\n", (double)outSamples/(double)fs);
 
 
-	int flag_t = 0;
+	double flag_t = 0;
 	char *cp;
 	if(argc > 5 && (cp = strchr(argv[5],'t')) != 0)
 	{

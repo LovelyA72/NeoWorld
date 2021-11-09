@@ -26,7 +26,7 @@ endif ()
 
 project(neoworld LANGUAGES C CXX VERSION 1.0.${git_version})
 
-SET(CMAKE_CXX_FLAGS "-O2")
+SET(CMAKE_CXX_FLAGS "-O2 -Wno-unused-result")
 
 add_executable(neoworld
         src/world/cheaptrick.h
