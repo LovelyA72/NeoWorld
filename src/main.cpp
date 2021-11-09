@@ -36,7 +36,7 @@
 #include "matlabmyfunctions.h"
 #include "audio_io.h"
 
-#include "config.h"
+#include "../build/config.h"
 
 #include <math.h>
 #include <sys/time.h>
