@@ -1,0 +1,6 @@
+OS 	: ubuntu 20.04
+CPU 	: Core i5 6300U
+メモリ 	: 8 GB
+
+開発ソフト
+GNU GCC 9.3.0
