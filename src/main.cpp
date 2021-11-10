@@ -18,8 +18,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
-#include "windows.h"
+#include <iostream>
+#include <iterator>
 
 #include "world.h"
 #include "wavread.h"
@@ -47,9 +47,12 @@
 //#pragma comment(lib, "winmm.lib")
 unsigned int timeGetTime()
 {
-	struct timeval now;
-	gettimeofday(&now, NULL);
-	return now.tv_usec/1000;
+	struct timespec ts;
+    unsigned theTick = 0U;
+    clock_gettime( CLOCK_REALTIME, &ts );
+    theTick  = ts.tv_nsec / 1000000;
+    theTick += ts.tv_sec * 1000;
+    return theTick;
 }
 
 int get64(int c)
@@ -1316,6 +1319,10 @@ int main(int argc, char *argv[])
 		fprintf(stdout, "Usage:\nneoworld inputfile outputfile notenum velocity flags offset_ms notelength fixedlength end intensity modulation tempo pitchbends\n");
 		return 0;
 	}
+	std::cout << "there are " << argc-1 << " (more) arguments, they are:\n" ;
+
+	std::copy( argv+1, argv+argc, std::ostream_iterator<const char*>( std::cout, "\n" ) ) ;
+	fprintf(stdout, "#### END OF ARGV INFORMATION ####\n");
 	//*/
 
 	FILE *fp;
@@ -1435,14 +1442,12 @@ int main(int argc, char *argv[])
 	if(argc > 7) sscanf(argv[7], "%lf", &length_req);
 	if(argc > 8) sscanf(argv[8], "%lf", &fixed);
 	if(argc > 9) sscanf(argv[9], "%lf", &blank);
-#ifdef _DEBBUG
 	printf("Parameters\n");
 	printf("velocity      :%lf\n", velocity);
 	printf("offset        :%lf\n", offset);
 	printf("request length:%lf\n",length_req);
 	printf("fixed         :%lf\n", fixed);
 	printf("blank         :%lf\n", blank);
-#endif
 	//伸縮の概念図
 	//  offset    fixed      m2        blank
 	//|--------|--------|------------|---------| 原音
@@ -1930,7 +1935,7 @@ fclose(fp3);
 	fwrite(header, sizeof(char), 44, fp);
 	fwrite(output, sizeof(short), outSamples, fp);
 	fclose(fp);
-
+	printf("Writing to %s\n",argv[2]);
 	printf("complete.\n");
 
 	// メモリの解放

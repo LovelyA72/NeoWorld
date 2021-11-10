@@ -6,7 +6,7 @@
 #include <pmmintrin.h>
 using std::min;
 using std::max;
-typedef uint32_t DWORD;
+typedef unsigned int DWORD;
 #if 0
 #define _aligned_malloc(a,b) aligned_alloc(b,a)
 #else
