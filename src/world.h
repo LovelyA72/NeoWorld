@@ -22,9 +22,9 @@
 // windowsならでは
 #pragma warning( disable : 4996 )
 
-#pragma comment(lib, "libfftw3-3.lib")
-#pragma comment(lib, "libfftw3f-3.lib")
-#pragma comment(lib, "libfftw3l-3.lib")
+//#pragma comment(lib, "libfftw3-3.lib")
+//#pragma comment(lib, "libfftw3f-3.lib")
+//#pragma comment(lib, "libfftw3l-3.lib")
 
 #define MAX_FFT_LENGTH 2048
 #define CEIL_F0 880.0

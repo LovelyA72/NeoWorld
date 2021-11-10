@@ -33,11 +33,18 @@ endif ()
 
 project(neoworld LANGUAGES C CXX VERSION 0.2.${git_version})
 
-SET(CMAKE_CXX_FLAGS "-O -msse3 -DFP_TYPE=float -Wno-unused-result")
+if (CMAKE_GENERATOR MATCHES "Visual Studio")
+    set(EXECNAME neoworld_msvc)
+else()
+    set(EXECNAME neoworld)
+    SET(CMAKE_CXX_FLAGS "-O -msse3 -DFP_TYPE=float -Wno-unused-result")
+endif()
+
+
 
 configure_file(src/config.h.in ${CMAKE_CURRENT_SOURCE_DIR}/build/config.h)
 
-add_executable(neoworld
+add_executable(${EXECNAME}
         src/world/cheaptrick.h
         src/world/common.h
         src/world/constantnumbers.h

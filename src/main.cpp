@@ -40,20 +40,28 @@
 #include "../build/config.h"
 
 #include <math.h>
+#if _MSC_VER
+#else
 #include <sys/time.h>
+#endif
 
 // Analyze the amount of sifto [msec]
 #define FRAMEPERIOD (1000.0*256/44100)
 //#define FRAMEPERIOD 5.80498866213152
 //#pragma comment(lib, "winmm.lib")
+
 unsigned int timeGetTime()
 {
+#if _MSC_VER
+	return 0;
+#else
 	struct timespec ts;
     unsigned theTick = 0U;
     clock_gettime( CLOCK_REALTIME, &ts );
     theTick  = ts.tv_nsec / 1000000;
     theTick += ts.tv_sec * 1000;
     return theTick;
+#endif
 }
 
 int get64(int c)
@@ -1340,8 +1348,8 @@ int main(int argc, char *argv[])
 	}
 
 	double *x = 0, *f0, *t, *y;
-	double **specgram;
-	double **residualSpecgram;
+	double **specgram = 0;
+	double **residualSpecgram = 0;
 	int fftl;
 
 	int signalLen;

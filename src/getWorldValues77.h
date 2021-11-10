@@ -2,6 +2,9 @@
 // WORLD/XIII (WORLD slash excijie) Library  1.8 karat WORLD Library
 //      Tuneup and original functions
 //
+#if _MSC_VER
+#include <corecrt_math_defines.h>
+#endif
 #ifndef WORLD_GET_WORLD_VALUES_77_H_
 #define WORLD_GET_WORLD_VALUES_77_H_
 
@@ -44,8 +47,8 @@ int GetFFTSizeForStar(double fs);
 //-----------------------------------------------------------------------------
 //      inline functions
 //
-//              ƒ}ƒNƒ‚æ‚è‚Íd‚¢‚¯‚Ç‚àA‘¬“x’á‰º‚ÍŠ´‚¶‚È‚¢‚Ì‚ÅA[•ª‘¬‚¢‚à‚æ‚¤
-//              ‚±‚¿‚ç‚Ì•û‚ªƒ\[ƒX‚ÌŒ©’Ê‚µ‚à—Ç‚­‚È‚é‚Æv‚¢‚Ü‚·
+//              ï¿½}ï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½Ídï¿½ï¿½ï¿½ï¿½ï¿½Ç‚ï¿½Aï¿½ï¿½ï¿½xï¿½á‰ºï¿½ÍŠï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½Ì‚ÅAï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ‚¤
+//              ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì•ï¿½ï¿½ï¿½ï¿½\ï¿½[ï¿½Xï¿½ÌŒï¿½ï¿½Ê‚ï¿½ï¿½ï¿½Ç‚ï¿½ï¿½È‚ï¿½Ævï¿½ï¿½ï¿½Ü‚ï¿½
 //
 //-----------------------------------------------------------------------------
 // These four functions are simple max() and min() function
@@ -72,7 +75,7 @@ inline double fmin(double x, double y) {
 }
 
 //-----------------------------------------------------------------------------
-// ‚±‚ÌƒvƒƒOƒ‰ƒ€‚ÍA‚PƒTƒ“ƒvƒ‹‚ÍŠÔ‚ğè—L‚µ‚È‚¢‚Æ‚İ‚È‚µ‚Ä‚¢‚Ü‚·
+// ï¿½ï¿½ï¿½Ìƒvï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½ÍAï¿½Pï¿½Tï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Íï¿½ï¿½Ô‚ï¿½ï¿½Lï¿½ï¿½ï¿½È‚ï¿½ï¿½Æ‚İ‚È‚ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½
 //
 // this program considered, one sample does not occupy one time interval
 //
@@ -96,7 +99,7 @@ inline double SampleNum2SampleLen(double sample) {
 } // Frame2Sample
 
 //-----------------------------------------------------------------------------
-// ˆÈ‰º‚ÌƒvƒƒOƒ‰ƒ€‚ÍA‚PƒTƒ“ƒvƒ‹‚Í1‹æŠÔ‚ÌŠÔ‚ğè—L‚·‚é‚Æ‚İ‚È‚µ‚Ä‚¢‚Ü‚·
+// ï¿½È‰ï¿½ï¿½Ìƒvï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½ÍAï¿½Pï¿½Tï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½Ô‚Ìï¿½ï¿½Ô‚ï¿½ï¿½Lï¿½ï¿½ï¿½ï¿½Æ‚İ‚È‚ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½
 //
 // following program considered, one sample occupies one time interval
 //
