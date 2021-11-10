@@ -51,7 +51,7 @@ jobs:
         # Artifact name
         name: neoworld-linux64 # optional, default is artifact
         # A file, directory or wildcard pattern that describes what to upload
-        path: ${{github.workspace}}/build/neoworld
+        path: ${{github.workspace}}/build/Release/neoworld_msvc.exe
         # Two weeks of retention days
         retention-days: 14
 
