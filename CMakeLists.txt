@@ -33,7 +33,7 @@ endif ()
 
 project(neoworld LANGUAGES C CXX VERSION 0.2.${git_version})
 
-SET(CMAKE_CXX_FLAGS "-O2 -Wno-unused-result")
+SET(CMAKE_CXX_FLAGS "-O -msse3 -DFP_TYPE=float -Wno-unused-result")
 
 configure_file(src/config.h.in ${CMAKE_CURRENT_SOURCE_DIR}/build/config.h)
 

@@ -24,8 +24,9 @@
 #include "world.h"
 #include "wavread.h"
 
-#include <math.h>
-#include <float.h>
+#include <iostream>
+#include <cmath>
+#include <cfloat>
 #include <memory.h>
 #include "world/stonemask.h"
 #include "world/cheaptrick.h"
@@ -557,12 +558,10 @@ void writeCTParam(int signalLen, int fs, const char *filename, double *specgram[
 			for (j=0; j <=fftl/2; j++)
 			{
 				int un;
-				if ((un = fpclassify(specgram[i][j]) & (FP_INFINITE+FP_NAN+FP_SUBNORMAL)) != 0)
+				un = fpclassify(specgram[i][j]);
+				if (un == FP_NAN || un == FP_INFINITE || un == FP_SUBNORMAL)
 				{
 					specgram[i][j] = 0;
-#ifdef _DEBUG
-					printf("un[%d][%d]=%04x!\n", i, j, un);
-#endif
 				}
 				unsigned short v = (unsigned short)(log(specgram[i][j]*(2048.0*2048*2048)+1) * 1024.0 + 0.5);
 				fwrite(&v, sizeof(unsigned short), 1, f1);
@@ -727,12 +726,11 @@ void writeD4CParam(int signalLen, int fs, const char *filename, double *residual
 			for (j=0; j<=fftl/2; j++)
 			{
 				int un;
-				if ((un = fpclassify(residualSpecgram[i][j]) & (FP_INFINITE+FP_NAN+FP_SUBNORMAL)) != 0)
+				// if ((un = _fpclass(residualSpecgram[i][j]) & 0x0087) != 0)
+				un = fpclassify(residualSpecgram[i][j]);
+				if (un == FP_NAN || un == FP_INFINITE || un == FP_SUBNORMAL)
 				{
 					residualSpecgram[i][j] = 0;
-#ifdef _DEBUG
-					printf("unr[%d][%d]=%04x!\n", i, j, un);
-#endif
 				}
 				short v = (short)(residualSpecgram[i][j] * 256.0);
 				//v = log(v * (2048.0*2048.0*2048.0) + 1) * 1024.0;
@@ -879,13 +877,14 @@ int writeDIOParam(int signalLen, int fs, int tLen, const char *filename, double 
 		for (i=0; i <tLen; i++)
 		{
 			int un;
-			if ((un = fpclassify(f0[i]) & (FP_INFINITE+FP_NAN+FP_SUBNORMAL)) != 0)//NaN,+Inf,-Inf,denormalを除外する
+			FP_SUBNORMAL;
+			// if ((un = _fpclass(f0[i]) & 0x0087) != 0) // Exclude NaN,+Inf,-Inf,denormal
+			un = fpclassify(f0[i]);
+			if (un == FP_NAN || un == FP_INFINITE || un == FP_SUBNORMAL)
 			{
-#ifdef _DEBUG
-				printf("un[%d]=%04x!\n", i, un);
-#endif
 				f0[i] = 0;
 			}
+			
 			fwrite(&(t[i]), sizeof(double), 1, f);
 			fwrite(&(f0[i]), sizeof(double), 1, f);
 			//fprintf(ft, "%lf\t%lf\n", t[i], f0[i]);
