@@ -3,7 +3,7 @@
 | Platform | Build Status |
 | ----------- | ----------- |
 | ubuntu | ![ubuntu-status](https://github.com/LovelyA72/NeoWorld/actions/workflows/ubuntu-build.yml/badge.svg) |
-| Windows | WIP | 
+| Windows | ![msvc-status](https://github.com/LovelyA72/NeoWorld/actions/workflows/msvc-build.yml/badge.svg) | 
 
 ## System requirement
 * CMake 3.2
